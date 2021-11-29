@@ -1,0 +1,23 @@
+<div class="container">
+  <h5>Detalhes da Filial</h5>
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        {{ filial.nome }}
+      </li>
+      <li class="list-group-item">
+        {{ filial.telefone }}
+      </li>
+      <li class="list-group-item">
+        {{ filial.email }}
+      </li>
+      <li class="list-group-item">
+        {{ filial.endereco }}
+      </li>
+    </ul>
+  </div>
+
+  <a class="btn btn-primary"
+  (click)="editarFilial()">Editar</a>
+
+</div>

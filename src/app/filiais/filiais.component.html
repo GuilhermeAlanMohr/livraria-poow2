@@ -1,0 +1,16 @@
+<div class="container">
+  <h5>Lista de Filiais</h5>
+
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"
+      *ngFor="let filial of filiais">
+        <a href="#!" *ngIf="filial.ativa" class="text-dark"
+        [routerLink]="['/filiais', filial.codigo]">
+          {{ filial.nome }} - {{ filial.email }} - {{ filial.endereco }}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <a class="btn btn-primary" (click)="cadastrarFilial()">Cadastrar Nova Filial</a>
+</div>

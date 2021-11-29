@@ -1,0 +1,20 @@
+<div class="container">
+  <h5>Detalhes da Livro</h5>
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        {{ livro.nome }}
+      </li>
+      <li class="list-group-item">
+        {{ livro.NomeAutor }}
+      </li>
+      <li class="list-group-item">
+        {{ livro.valor | number:'5.1-2' }}
+      </li>
+    </ul>
+  </div>
+
+  <a class="btn btn-primary"
+  (click)="editarLivro()">Editar</a>
+
+</div>

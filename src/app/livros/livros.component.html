@@ -1,0 +1,16 @@
+<div class="container">
+  <h5>Lista de Livros</h5>
+
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"
+      *ngFor="let livro of livros">
+        <a href="#!" *ngIf="livro.ativo" class="text-dark"
+        [routerLink]="['/editoras', livro.codigo]">
+          {{ livro.nome }} - {{ livro.nomeAutor }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <a class="btn btn-primary" (click)="cadastrarLivro()">Editar</a>
+</div>

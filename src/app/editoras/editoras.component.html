@@ -1,0 +1,16 @@
+<div class="container">
+  <h5>Lista de Editoras</h5>
+
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"
+      *ngFor="let editora of editoras">
+        <a href="#!" *ngIf="editora.ativa" class="text-dark"
+        [routerLink]="['/editoras', editora.codigo]">
+          {{ editora.nome }} - {{ editora.email }} - {{ editora.endereco }}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <a class="btn btn-primary" (click)="cadastrarEditora()">Cadastrar Nova Editora</a>
+</div>

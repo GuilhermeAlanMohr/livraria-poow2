@@ -1,0 +1,29 @@
+[
+  {
+    "codigo" : "1",
+    "nome" : "Filial 1",
+    "telefone" : "(51) 99004-1000",
+    "email" : "filial@gmail.com",
+    "endereco" : "Rua Ruperti Filho 2578",
+    "cidade" : "22",
+    "ativa" : "true"
+  },
+  {
+    "codigo" : "2",
+    "nome" : "Filial 2",
+    "telefone" : "(51) 99004-1000",
+    "email" : "filial2@gmail.com",
+    "endereco" : "Rua Barão do Triunfo 2142",
+    "cidade" : "102",
+    "ativa" : "true"
+  },
+  {
+    "codigo" : "3",
+    "nome" : "Filial 3",
+    "telefone" : "(51) 96067-5140",
+    "email" : "filial3@hotmail.com",
+    "endereco" : "Rua Visconde da Graça 2018",
+    "cidade" : "50",
+    "ativa" : "false"
+  }
+]

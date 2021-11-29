@@ -1,0 +1,23 @@
+<div class="container">
+  <h5>Detalhes da Editora</h5>
+  <div class="card row">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        {{ editora.nome }}
+      </li>
+      <li class="list-group-item">
+        {{ editora.telefone }}
+      </li>
+      <li class="list-group-item">
+        {{ editora.email }}
+      </li>
+      <li class="list-group-item">
+        {{ editora.endereco }}
+      </li>
+    </ul>
+  </div>
+
+  <a class="btn btn-primary"
+  (click)="editarEditora()">Editar</a>
+
+</div>

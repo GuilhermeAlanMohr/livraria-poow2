@@ -1,0 +1,46 @@
+<div class="container">
+  <form class="form-horizontal" [formGroup]="formulario">
+    <div class="col-sm-12">
+      <label class="control-label">Nome</label>
+      <input type="text" class="form-control" formControlName="nome" [(ngModel)]="filial.nome">
+    </div>
+    <div class="col-sm-12" formControlName="email">
+      <label class="control-label" for="email">Email</label>
+      <input type="email" class="form-control" formControlName="email"
+       id="email" placeholder="nome@email.com" [(ngModel)]="filial.email">
+    </div>
+    <div class="col-md-12">
+      <label for="telefone" class="control-label">Telefone</label>
+      <input type="text" class="form-control" id="telefone" [(ngModel)]="filial.telefone"
+        formControlName="telefone" placeholder="(XX) XXXXX-XXXX">
+    </div>
+    <div class="form-group">
+      <div class="col-md-12">
+        <label for="endereco" class="control-label">Endereço</label>
+        <input type="text" class="form-control" id="endereco"
+        formControlName="endereco" [(ngModel)]="filial.endereco">
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="cidade" class="control-label">Cidade</label>
+          <select class="form-control" id="cidade" formControlName="cidade" [ngModel]="cidade.codigo">
+            <option *ngFor="let cidade of cidades" [ngValue]="cidade.codigo"
+            [selected]="filial.cidade == cidade.codigo">{{ cidade.nome }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="estado" class="control-label">Estado</label>
+          <select class="form-control" id="estado" formControlName="estado">
+            <option *ngFor="let estado of estados" [value]="estado.sigla">{{ estado.nome }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-primary" *ngIf="filial.codigo!=0"
+     (click)="editarFilial(this.filial)">Editar</a>
+    <a class="btn btn-sucess"
+     (click)="addFilial()" *ngIf="filial.codigo==0">Salvar</a>
+    <a class="btn btn-danger" *ngIf="filial.codigo!=0"
+     (click)="excluirFilial(this.filial)">Excluir</a>
+  </form>
+</div>

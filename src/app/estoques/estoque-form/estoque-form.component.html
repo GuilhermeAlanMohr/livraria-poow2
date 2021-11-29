@@ -1,0 +1,30 @@
+<div class="container">
+  <form class="form-horizontal" [formGroup]="formulario">
+    <div class="col-sm-12">
+      <label class="control-label" for="quantidade">Quantidade</label>
+      <input type="number" class="form-control" id="quantidade" formControlName="quantidade"
+        [(ngModel)]="estoque.quantidade">
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="livros" class="control-label">Livro</label>
+        <select class="form-control" id="livros" formControlName="livros" [ngModel]="estoque.livro">
+          <option *ngFor="let livro of livros" [ngValue]="livro.codigo"
+          [selected]="estoque.livro == livro.codigo">{{ livro.nome }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="filial" class="control-label">Filial</label>
+        <select class="form-control" id="filial" formControlName="filial">
+          <option *ngFor="let filial of filiais" [value]="filial.codigo">{{ filial.nome }}</option>
+        </select>
+      </div>
+    </div>
+    <a class="btn btn-primary" *ngIf="estoque.codigo!=0"
+     (click)="editarEstoque(this.estoque)">Editar</a>
+    <a class="btn btn-success"
+     (click)="addEstoque()">Salvar</a>
+    <a class="btn btn-danger" *ngIf="estoque.codigo!=0"
+     (click)="excluirEstoque(this.estoque)">Excluir</a>
+  </form>
+</div>
