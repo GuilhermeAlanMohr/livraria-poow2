@@ -1,13 +1,14 @@
+import { Genero } from './../genero';
+import { Livro } from './../livro';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Editora } from 'src/app/editoras/editora';
 import { DropdownService } from 'src/app/servicos-globais/dropdown.service';
-import { Genero } from '../genero';
-import { Livro } from '../livro';
 import { LivrosService } from '../livros.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-livro-form',
@@ -16,15 +17,10 @@ import { LivrosService } from '../livros.service';
 })
 export class LivroFormComponent implements OnInit {
 
-  codigo: number = 0;
-  inscricao: Subscription = new Subscription();
-  livro: any = '';
-  genero: any = {};
-  editora: any = {};
-
-  editoras: Editora[] = [];
-  generos: Genero[] = [];
+  editoras$!: Observable<Editora[]>;
+  generos$!: Observable<Genero[]>;
   formulario!: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,64 +28,60 @@ export class LivroFormComponent implements OnInit {
     private dropdownService: DropdownService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private livrosServices: LivrosService
   ) { }
 
   ngOnInit(): void {
 
-    this.dropdownService.getEditoras()
-      .subscribe(dados => this.editoras = dados);
+    this.generos$ = this.dropdownService.getGeneros();
+    this.editoras$ = this.dropdownService.getEditoras();
 
-    this.dropdownService.getGeneros()
-      .subscribe(dados => this.generos = dados);
+    const livroSelecionado = this.route.snapshot.data['livro'];
 
-      this.formulario = this.formBuilder.group({
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        nomeAutor: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        valor: [null, [Validators.required]],
-        genero: [null, Validators.required],
-        editora: [null, [Validators.required]],
+    this.formulario = this.formBuilder.group({
+      id: [livroSelecionado.id],
+      nome: [livroSelecionado.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      nomeAutor: [livroSelecionado.nomeAutor, [Validators.required, Validators.minLength(3),
+        Validators.maxLength(50)]],
+      valor: [livroSelecionado.valor, [Validators.required]],
+      genero: [null, [Validators.required]],
+      editora: [null, [Validators.required]],
 
     });
 
-    this.inscricao = this.route.params.subscribe(
-      (params: any) => {
-        this.codigo = params['id'];
+  }
 
-        this.livro = this.livrosServices.getLivro(this.livro);
-        this.genero = this.dropdownService.getGenero(this.livro.genero);
-        this.editora = this.dropdownService.getEditora(this.livro.editora);
+  hasError(field: string) {
+    return this.formulario.get(field)?.errors;
+  }
 
-        if(this.livro === null){
-          this.livro = {};
-        }
+  onSubmit(){
+    this.submitted = true;
+    console.log(this.formulario.value);
+    if (this.formulario.valid) {
+      console.log('submit');
+
+      let msgSuccess = 'Livro criado com sucesso!';
+      let msgError = 'Erro ao criar livro, tente novamente!';
+      if (this.formulario.value.id) {
+        msgSuccess = 'Livro atualizado com sucesso!';
+        msgError = 'Erro ao atualizar livro, tente novamente!';
       }
-    );
+      this.livrosServices.salvar(this.formulario.value).subscribe(
+        success => {
+          console.log(msgSuccess),
+          this.location.back()
+        },
+        error => console.log(msgError)
+      );
 
+    }
   }
 
-  ngOnDestroy() {
-    this.inscricao.unsubscribe();
-  }
-
-  editarLivro(livro:Livro){
-    this.livrosServices.editarLivro(livro);
-    console.log("Livro editado com sucesso!");
-    this.router.navigate(['/livros']);
-  }
-
-  addLivro(){
-    this.livrosServices.addLivro(this.livro.nome,this.livro.nomeAutor,this.livro.valor,
-      this.livro.editora,this.livro.genero);
-
-    console.log("Livro adicionado com sucesso!");
-    this.router.navigate(['/livro']);
-  }
-
-  excluirLivro(livro:Livro){
-    this.livrosServices.excluirLivro(livro);
-    console.log("Livro removida com sucesso!");
-    this.router.navigate(['/livros']);
+  onCancel(){
+    this.submitted = false;
+    this.formulario.reset();
   }
 
 }

@@ -6,7 +6,7 @@
       <li class="list-group-item"
       *ngFor="let estoque of estoques">
         <a href="#!" *ngIf="estoque.ativo" class="text-dark"
-        [routerLink]="['/estoques', estoque.codigo]">
+        [routerLink]="['/estoques', estoque.id]">
           Código do Livro: {{ estoque.livro }} - Código da Filial:  {{ estoque.filial }} - Quantidade: {{ estoque.quantidade }}}
         </a>
       </li>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { FiliaisService } from './filiais.service';
 import { Filial } from './filial';
 
@@ -10,7 +11,7 @@ import { Filial } from './filial';
 })
 export class FiliaisComponent implements OnInit {
 
-  filiais: Filial[] = [];
+  filiais$!: Observable<Filial[]>;
 
   constructor(
     private filiaisService: FiliaisService,
@@ -19,7 +20,7 @@ export class FiliaisComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.filiais = this.filiaisService.getFiliais();
+    this.filiais$ = this.filiaisService.getFiliais();
 
   }
 

@@ -1,5 +1,5 @@
 export interface Estoque{
-  codigo: number;
+  id: number;
   filial: number;
   livro: number;
   quantidade: number;

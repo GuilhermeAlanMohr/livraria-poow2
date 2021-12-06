@@ -1,165 +1,165 @@
 [
   {
-    "codigo": "1",
+    "codigo": 1,
     "nome": "Apocalipse Zumbi"
   },
   {
-    "codigo": "2",
+    "codigo": 2,
     "nome": "Autobiografia"
   },
   {
-    "codigo": "3",
+    "codigo": 3,
     "nome": "Biografia"
   },
   {
-    "codigo": "4",
+    "codigo": 4,
     "nome": "Chick-Lit"
   },
   {
-    "codigo": "5",
+    "codigo":5,
     "nome": "Conto"
   },
   {
-    "codigo":"6",
+    "codigo":6,
     "nome":"Crônica"
   },
   {
-    "codigo": "7",
+    "codigo": 7,
     "nome": "Elegia"
   },
   {
-    "codigo": "8",
+    "codigo": 8,
     "nome": "Ensaio"
   },
   {
-    "codigo": "9",
+    "codigo": 9,
     "nome": "Fábula"
   },
   {
-    "codigo": "10",
+    "codigo": 10,
     "nome": "Fantasia e Fantasia Científica"
   },
   {
-    "codigo": "11",
+    "codigo": 11,
     "nome": "Farsa"
   },
   {
-    "codigo": "12",
+    "codigo": 12,
     "nome": "Ficção Científica"
   },
   {
-    "codigo": "13",
+    "codigo": 13,
     "nome": "Folhetim"
   },
   {
-    "codigo": "14",
+    "codigo": 14,
     "nome": "Horror"
   },
   {
-    "codigo": "15",
+    "codigo": 15,
     "nome": "Literatura de Auto-Ajuda"
   },
   {
-    "codigo":"16",
+    "codigo":16,
     "nome":"Literatura de Aventura"
   },
   {
-    "codigo": "17",
+    "codigo": 17,
     "nome": "Literatura Brutalista"
   },
   {
-    "codigo": "18",
+    "codigo": 18,
     "nome": "Literatura Cyberpunk"
   },
   {
-    "codigo": "19",
+    "codigo": 19,
     "nome": "Literatura Espiritualista"
   },
   {
-    "codigo": "20",
+    "codigo": 20,
     "nome": "Literatura Esotérica"
   },{
-    "codigo": "21",
+    "codigo": 21,
     "nome": "Literatura Fantástica"
   },
   {
-    "codigo": "22",
+    "codigo": 22,
     "nome": "Literatura Gótica"
   },
   {
-    "codigo": "23",
+    "codigo": 23,
     "nome": "Literatura de Guerra"
   },
   {
-    "codigo": "24",
+    "codigo": 24,
     "nome": "Literatura Infanto-Juvenil"
   },
   {
-    "codigo": "25",
+    "codigo": 25,
     "nome": "Literatura YA – Young Adult – Jovem Adulto"
   },
   {
-    "codigo":"26",
+    "codigo":26,
     "nome":"Literatura de Negócios"
   },
   {
-    "codigo": "27",
+    "codigo": 27,
     "nome": "Literatura Steampunk"
   },
   {
-    "codigo": "28",
+    "codigo": 28,
     "nome": "Metaficção"
   },
   {
-    "codigo": "29",
+    "codigo": 29,
     "nome": "Neocrítica"
   },
   {
-    "codigo": "30",
+    "codigo": 30,
     "nome": "Novelas de Cavalaria"
   },
   {
-    "codigo": "31",
+    "codigo": 31,
     "nome": "Paródia"
   },
   {
-    "codigo": "32",
+    "codigo": 32,
     "nome": "Romance de Aprendizagem"
   },
   {
-    "codigo": "33",
+    "codigo": 33,
     "nome": "Romances Espíritas"
   },
   {
-    "codigo": "34",
+    "codigo": 34,
     "nome": "Romances Históricos"
   },
   {
-    "codigo": "35",
+    "codigo": 35,
     "nome": "Romance Policial"
   },
   {
-    "codigo":"36",
+    "codigo":36,
     "nome":"Romance Psicológico"
   },
   {
-    "codigo": "37",
+    "codigo": 37,
     "nome": "Sick-Lit"
   },
   {
-    "codigo": "38",
+    "codigo": 38,
     "nome": "Space Opera"
   },
   {
-    "codigo": "39",
+    "codigo": 39,
     "nome": "Suspense"
   },
   {
-    "codigo": "40",
+    "codigo": 40,
     "nome": "Tragédia"
   },
   {
-    "codigo":"41",
+    "codigo":41,
     "nome": "Vampirismo"
   }
 ]

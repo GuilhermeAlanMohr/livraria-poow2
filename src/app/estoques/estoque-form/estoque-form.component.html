@@ -9,14 +9,14 @@
       <div class="col-md-4">
         <label for="livros" class="control-label">Livro</label>
         <select class="form-control" id="livros" formControlName="livros" [ngModel]="estoque.livro">
-          <option *ngFor="let livro of livros" [ngValue]="livro.codigo"
-          [selected]="estoque.livro == livro.codigo">{{ livro.nome }}</option>
+          <option *ngFor="let livro of livros" [ngValue]="livro.id"
+          [selected]="estoque.livro == livro.id">{{ livro.nome }}</option>
         </select>
       </div>
       <div class="col-md-4">
         <label for="filial" class="control-label">Filial</label>
         <select class="form-control" id="filial" formControlName="filial">
-          <option *ngFor="let filial of filiais" [value]="filial.codigo">{{ filial.nome }}</option>
+          <option *ngFor="let filial of filiais" [value]="filial.id">{{ filial.nome }}</option>
         </select>
       </div>
     </div>

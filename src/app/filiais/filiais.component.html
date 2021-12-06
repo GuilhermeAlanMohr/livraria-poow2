@@ -4,10 +4,10 @@
   <div class="card row">
     <ul class="list-group list-group-flush">
       <li class="list-group-item"
-      *ngFor="let filial of filiais">
+      *ngFor="let filial of filiais$ | async as filiais">
         <a href="#!" *ngIf="filial.ativa" class="text-dark"
-        [routerLink]="['/filiais', filial.codigo]">
-          {{ filial.nome }} - {{ filial.email }} - {{ filial.endereco }}}
+        [routerLink]="['/filiais', filial.id]">
+          {{ filial.nome }} - {{ filial.email }} - {{ filial.endereco }}
         </a>
       </li>
     </ul>

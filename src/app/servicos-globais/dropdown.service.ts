@@ -13,6 +13,9 @@ import { Filial } from '../filiais/filial';
 })
 export class DropdownService {
 
+  private readonly API = 'http://localhost:3000/';
+  private tipo: string = '';
+
   constructor(private http: HttpClient) { }
 
   getEstados() {
@@ -32,7 +35,8 @@ export class DropdownService {
   }
 
   getGeneros() {
-    return this.http.get<Genero[]>('assets/dados/generos.json');
+    this.tipo='generos';
+    return this.http.get<Genero[]>(this.API+this.tipo);
   }
 
   getCidades(siglaEstado: string) {
@@ -52,28 +56,28 @@ export class DropdownService {
   getGenero(codigo: number) {
     return this.http.get<Genero[]>('assets/dados/generos.json')
     .pipe(
-      map((generos: Genero[]) => generos.filter(g => g.codigo === codigo))
+      map((generos: Genero[]) => generos.filter(g => g.id === codigo))
     );
   }
 
   getEditora(codigo: number) {
     return this.http.get<Editora[]>('assets/dados/editoras.json')
     .pipe(
-      map((editoras: Editora[]) => editoras.filter(e => e.codigo === codigo))
+      map((editoras: Editora[]) => editoras.filter(e => e.id === codigo))
     );
   }
 
   getLivro(codigo: number) {
     return this.http.get<Livro[]>('assets/dados/livros.json')
     .pipe(
-      map((livros: Livro[]) => livros.filter(l => l.codigo === codigo))
+      map((livros: Livro[]) => livros.filter(l => l.id === codigo))
     );
   }
 
   getFilial(codigo: number) {
     return this.http.get<Filial[]>('assets/dados/filiais.json')
     .pipe(
-      map((filiais: Filial[]) => filiais.filter(f => f.codigo === codigo))
+      map((filiais: Filial[]) => filiais.filter(f => f.id === codigo))
     );
   }
 

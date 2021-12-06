@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { take, tap } from 'rxjs/operators';
 import { Livro } from './livro';
 
 @Injectable({
@@ -6,92 +8,44 @@ import { Livro } from './livro';
 })
 export class LivrosService {
 
-  constructor() { }
+  private readonly API = 'http://localhost:3000/livros';
 
-  livros: Livro[] = [
-    {
-      codigo: 1,
-      nome: "Livro 1",
-      nomeAutor: "João",
-      valor: 20.90,
-      editora: 2,
-      genero: 2,
-      ativo: true
-    },
-    {
-      codigo: 2,
-      nome: "Livro 2",
-      nomeAutor: "Paulo",
-      valor: 35.50,
-      editora: 1,
-      genero: 5,
-      ativo: false
-    },
-    {
-      codigo: 3,
-      nome: "Livro 3",
-      nomeAutor: "Pedro",
-      valor: 19.99,
-      editora: 1,
-      genero: 18,
-      ativo: true
-    },
-  ];
+  constructor(private http: HttpClient) { }
 
   getLivros(){
-    return this.livros;
+    return this.http.get<Livro[]>(this.API);
   }
 
   getLivro(id: number){
-    let livro = this.getLivros();
-    for(let i=0; i<this.livros.length; i++){
-      let livro = this.livros[i];
-      if(livro.codigo == id){
-        return {
-          codigo: livro.codigo,
-          nome: livro.nome,
-          nomeAutor: livro.nomeAutor,
-          valor: livro.valor,
-          editora: livro.editora,
-          genero: livro.genero,
-          ativo: livro.genero
-        };
-      }
-    }
-    return null;
+    return this.http.get<Livro>(`${this.API}/${id}`).pipe(take(1));
   }
 
-  atualizaLivros(livros:Livro[]){
-    this.livros = livros;
-  }
-
-  addLivro(nome:string, nomeAutor: string, valor:number, editora: number, genero:number){
-    this.livros.push({
-      "codigo": this.livros.length++,
-      "nome":nome,
-      "nomeAutor":nomeAutor,
-      "valor":valor,
-      "editora":editora,
-      "genero":genero,
+  addLivro(livro:Livro){
+    const addLivro = {
+      "nome":livro.nome,
+      "nomeAutor":livro.nomeAutor,
+      "valor":livro.valor,
+      "editora":livro.editora,
+      "genero":livro.genero,
       "ativo":true
-    });
+    }
+    return this.http.post(this.API, addLivro).pipe(take(1));
   }
 
-  excluirLivro(livro:Livro){
-    for(let li of this.livros){
-      if(livro.codigo == li.codigo){
-        this.livros.pop();
-      }
+  salvar(livro:Livro) {
+    livro.ativo = true;
+    if (livro.id!=0) {
+      return this.editarLivro(livro);
     }
+    return this.addLivro(livro);
+  }
+
+  excluirLivro(id:number){
+    return this.http.delete(`${this.API}/${id}`).pipe(take(1));
   }
 
   editarLivro(livro:Livro){
-    for(let li of this.livros){
-      if(livro.codigo == li.codigo){
-        this.livros.pop();
-        this.livros.push(livro);
-      }
-    }
+    return this.http.put(`${this.API}/${livro.id}`, livro).pipe(take(1))
   }
 
 }

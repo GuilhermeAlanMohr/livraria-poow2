@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { Filial } from './filial';
 
 @Injectable({
@@ -6,11 +8,13 @@ import { Filial } from './filial';
 })
 export class FiliaisService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  private readonly API = 'http://localhost:3000/estoques';
 
   filiais: Filial[] = [
     {
-      codigo: 1,
+      id: 1,
       nome: "Filial 1",
       telefone: "(51) 99004-1000",
       email: "filial@gmail.com",
@@ -19,7 +23,7 @@ export class FiliaisService {
       ativa: true,
     },
     {
-      codigo: 2,
+      id: 2,
       nome: "Filial 2",
       telefone: "(51) 99004-1000",
       email: "filial2@gmail.com",
@@ -28,7 +32,7 @@ export class FiliaisService {
       ativa: true,
     },
     {
-      codigo: 3,
+      id: 3,
       nome: "Filial 3",
       telefone: "(51) 96067-5140",
       email: "filial3@hotmail.com",
@@ -39,35 +43,16 @@ export class FiliaisService {
   ];
 
   getFiliais(){
-    return this.filiais;
+    return this.http.get<Filial[]>(this.API);
   }
 
   getFilial(id: number){
-    let editora = this.getFiliais();
-    for(let i=0; i<this.filiais.length; i++){
-      let filial = this.filiais[i];
-      if(filial.codigo == id){
-        return {
-          "codigo":filial.codigo,
-          "nome":filial.nome,
-          "telefone":filial.telefone,
-          "email":filial.email,
-          "endereco":filial.endereco,
-          "cidade":filial.cidade,
-          "ativa":filial.ativa
-        };
-      }
-    }
-    return null;
-  }
-
-  atualizaFilial(filiais:Filial[]){
-    this.filiais = filiais;
+    return this.http.get<Filial>(`${this.API}/${id}`).pipe(take(1));
   }
 
   addEditora(nome:string, email: string, endereco:string, telefone: string, cidade:number){
     this.filiais.push({
-      "codigo": this.filiais.length++,
+      "id": this.filiais.length++,
       "nome":nome,
       "telefone":telefone,
       "email":email,
@@ -79,7 +64,7 @@ export class FiliaisService {
 
   excluirFilial(filial:Filial){
     for(let fil of this.filiais){
-      if(filial.codigo == fil.codigo){
+      if(filial.id == fil.id){
         this.filiais.pop();
       }
     }
@@ -87,7 +72,7 @@ export class FiliaisService {
 
   editarFilial(filial:Filial){
     for(let fil of this.filiais){
-      if(filial.codigo == fil.codigo){
+      if(filial.id == fil.id){
         this.filiais.pop();
         this.filiais.push(filial);
       }

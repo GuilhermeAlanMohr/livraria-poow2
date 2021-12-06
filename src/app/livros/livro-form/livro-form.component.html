@@ -1,38 +1,36 @@
 <div class="container">
   <form class="form-horizontal" [formGroup]="formulario">
-    <div class="col-sm-12">
+    <input type="hidden" id="id" formControlName="id">
+    <div class="col-md-12">
       <label class="control-label" for="nome">Nome</label>
-      <input type="text" class="form-control" id="nome" formControlName="nome" [(ngModel)]="livro.nome">
-    </div>
-    <div class="col-sm-12">
-      <label class="control-label" for="nomeAutor">Nome do Autor</label>
-      <input type="text" class="form-control" id="nomeAutor" formControlName="nomeAutor" [(ngModel)]="livro.nomeAutor">
+      <input type="text" class="form-control" id="nome" formControlName="nome"
+        placeholder="Informe o nome do livro">
     </div>
     <div class="col-md-12">
-      <label for="valor" class="control-label">Telefone</label>
-      <input type="number" class="form-control" id="valor" [(ngModel)]="livro.valor"
+      <label class="control-label" for="nomeAutor">Nome do Autor</label>
+      <input type="text" class="form-control" id="nomeAutor" formControlName="nomeAutor"
+      placeholder="Informe o nome do autor do livro">
+    </div>
+    <div class="col-md-12">
+      <label for="valor" class="control-label">Valor</label>
+      <input type="number" class="form-control" id="valor" placeholder="Informe o valor do livro"
         formControlName="valor">
     </div>
     <div class="row">
       <div class="col-md-4">
-        <label for="genero" class="control-label">Genero</label>
-        <select class="form-control" id="genero" formControlName="generos" [ngModel]="livro.genero">
-          <option *ngFor="let genero of generos" [ngValue]="genero.codigo"
-          [selected]="livro.genero == genero.codigo">{{ genero.nome }}</option>
+        <label for="genero" class="control-label">Gênero</label>
+        <select class="form-control" id="genero" formControlName="genero">
+          <option *ngFor="let genero of generos$ | async" [ngValue]="genero.id"
+          >{{ genero.nome }}</option>
         </select>
       </div>
       <div class="col-md-3">
         <label for="editora" class="control-label">Editora</label>
         <select class="form-control" id="editora" formControlName="editora">
-          <option *ngFor="let editora of editoras" [value]="editora.codigo">{{ editora.nome }}</option>
+          <option *ngFor="let editora of editoras$ | async" [ngValue]="editora.id">{{ editora.nome }}</option>
         </select>
       </div>
     </div>
-    <a class="btn btn-primary" *ngIf="livro.codigo!=0"
-     (click)="editarLivro(this.livro)">Editar</a>
-    <a class="btn btn-sucess"
-     (click)="addLivro()" *ngIf="livro.codigo==0">Salvar</a>
-    <a class="btn btn-danger" *ngIf="livro.codigo!=0"
-     (click)="excluirLivro(this.livro)">Excluir</a>
+    <a class="btn btn-success" (click)="onSubmit()">Salvar</a>
   </form>
 </div>

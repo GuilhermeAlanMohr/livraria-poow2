@@ -6,23 +6,24 @@ import { Estoque } from './estoque';
 })
 export class EstoquesService {
 
+  private readonly API = 'http://localhost:3000/estoques';
   estoques: Estoque[] = [
     {
-      codigo: 1,
+      id: 1,
       filial: 1,
       livro: 2,
       quantidade: 23,
       ativo: true
     },
     {
-      codigo: 2,
+      id: 2,
       filial: 3,
       livro: 1,
       quantidade: 16,
       ativo: true
     },
     {
-      codigo: 3,
+      id: 3,
       filial: 1,
       livro: 2,
       quantidade: 38,
@@ -38,9 +39,9 @@ export class EstoquesService {
     let editora = this.getEstoques();
     for(let i=0; i<this.estoques.length; i++){
       let estoque = this.estoques[i];
-      if(estoque.codigo == id){
+      if(estoque.id == id){
         return {
-          "codigo":estoque.codigo,
+          "id":estoque.id,
           "livro":estoque.livro,
           "filial":estoque.filial,
           "quantidade":estoque.quantidade,
@@ -57,7 +58,7 @@ export class EstoquesService {
 
   addEstoque(livro:number, filial: number, quantidade: number){
     this.estoques.push({
-      "codigo": this.estoques.length++,
+      "id": this.estoques.length++,
       "livro":livro,
       "filial":filial,
       "quantidade":quantidade,
@@ -67,7 +68,7 @@ export class EstoquesService {
 
   excluirEstoque(estoque:Estoque){
     for(let est of this.estoques){
-      if(estoque.codigo == est.codigo){
+      if(estoque.id == est.id){
         this.estoques.pop();
       }
     }
@@ -75,7 +76,7 @@ export class EstoquesService {
 
   editarEstoque(estoque:Estoque){
     for(let est of this.estoques){
-      if(estoque.codigo == est.codigo){
+      if(estoque.id == est.id){
         this.estoques.pop();
         this.estoques.push(estoque);
       }

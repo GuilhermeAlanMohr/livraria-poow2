@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Livro } from './livro';
 import { LivrosService } from './livros.service';
 
@@ -11,6 +12,7 @@ import { LivrosService } from './livros.service';
 export class LivrosComponent implements OnInit {
 
   livros: Livro[] = [];
+  livros$!: Observable<Livro[]>;
 
   constructor(
     private livrosService: LivrosService,
@@ -19,12 +21,20 @@ export class LivrosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.livros = this.livrosService.getLivros();
+    this.livros$ = this.livrosService.getLivros();
 
   }
 
-  cadastrarLivro(){
-    this.router.navigate(['/livros/cadastrar']);
+  verificarLivro(id: number){
+    this.router.navigate(["livros/",id]);
+  }
+
+  excluirLivro(id: number){
+    console.log("id: ",id);
+    this.livrosService.excluirLivro(id).subscribe(
+      success => console.log("Livro excluído com sucesso"),
+      error => console.log("Erro ao excluir livro")
+    );
   }
 
 }

@@ -42,7 +42,7 @@ export class EditoraDetalheComponent implements OnInit {
   }
 
   editarEditora(){
-    this.router.navigate(['/editoras', this.editora.codigo, 'editar']);
+    this.router.navigate(['/editoras', this.editora.id, 'editar']);
   }
 
 }

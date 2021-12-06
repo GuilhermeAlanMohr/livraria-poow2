@@ -1,29 +1,29 @@
 [
   {
-    "codigo" : "1",
+    "codigo" : 1,
     "nome" : "Livro 1",
     "nomeAutor" : "João",
     "valor" : "20.90",
-    "editora" : "2",
-    "genero" : "2",
-    "ativo" : "true"
+    "editora" : 2,
+    "genero" : 2,
+    "ativo" : true
   },
   {
-    "codigo" : "2",
+    "codigo" : 2,
     "nome" :  "Livro 2",
     "nomeAutor" : "Paulo",
     "valor" : "35.50",
-    "editora" : "1",
-    "genero" : "5",
-    "ativo" : "false"
+    "editora" : 1,
+    "genero" : 5,
+    "ativo" : false
   },
   {
-    "codigo" : "3",
+    "codigo" : 3,
     "nome" : "Livro 3",
     "nomeAutor" : "Pedro",
     "valor" : "19.99",
-    "editora" : "1",
-    "genero" : "18",
-    "ativo" : "true"
+    "editora" : 1,
+    "genero" : 18,
+    "ativo" : true
   }
 ]

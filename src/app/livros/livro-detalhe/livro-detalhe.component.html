@@ -3,18 +3,17 @@
   <div class="card row">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        {{ livro.nome }}
+        {{ nome }}
       </li>
       <li class="list-group-item">
-        {{ livro.NomeAutor }}
+        {{ nomeAutor }}
       </li>
       <li class="list-group-item">
-        {{ livro.valor | number:'5.1-2' }}
+        {{ valor }}
       </li>
     </ul>
   </div>
 
-  <a class="btn btn-primary"
-  (click)="editarLivro()">Editar</a>
+  <a class="btn btn-primary" (click)="editarLivro()">Editar</a>
 
 </div>

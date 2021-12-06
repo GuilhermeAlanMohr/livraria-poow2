@@ -1,16 +1,49 @@
 <div class="container">
-  <h5>Lista de Livros</h5>
+  <div class="card mt-3">
+    <div class="card-header">
+      <div class="float-left">
+        <h4>Lista de Livros</h4>
+      </div>
+      <div class="float-right">
+        <button type="button" class="btn btn-primary" style="margin-left: 8px; margin-right: 8px;"
+          [routerLink]="['cadastrar']">Novo Livro</button>
+        <button type="button" class="btn btn-secondary" style="margin-left: 8px; margin-right: 8px;"
+          >Atualizar</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover" *ngIf="(livros$ | async) as livros; else loading">
+        <thead>
+          <tr>
+            <th>Nome do Livro</th>
+            <th>Nome do Autor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let livro of livros">
+            <td *ngIf="livro.ativo">{{ livro.nome }}</td>
+            <td *ngIf="livro.ativo">{{ livro.nomeAutor }}</td>
+            <td *ngIf="livro.ativo">
+              <span class="float-right" style="margin-left: 10px;">
+                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarLivro(livro.id)"
+                  style="margin-left: 8px; margin-right: 8px;">
+                  Visualizar
+                </button>
 
-  <div class="card row">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"
-      *ngFor="let livro of livros">
-        <a href="#!" *ngIf="livro.ativo" class="text-dark"
-        [routerLink]="['/editoras', livro.codigo]">
-          {{ livro.nome }} - {{ livro.nomeAutor }}
-        </a>
-      </li>
-    </ul>
+                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirLivro(livro.id)"
+                  style="margin-left: 8px; margin-right: 8px;">
+                  Remover
+                </button>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <span>Carregando Livros...</span>
+      </ng-template>
+    </div>
   </div>
-  <a class="btn btn-primary" (click)="cadastrarLivro()">Editar</a>
 </div>

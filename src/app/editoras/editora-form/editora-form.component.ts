@@ -41,13 +41,13 @@ export class EditoraFormComponent implements OnInit {
     this.dropdownService.getEstados()
       .subscribe(dados => this.estados = dados);
 
-      this.formulario = this.formBuilder.group({
-        nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-        email: [null, [Validators.required, Validators.email]],
-        endereco: [null, Validators.required],
-        telefone: [null, [Validators.required]],
-        cidade: [null, Validators.required],
-        estado: [null, Validators.required]
+    this.formulario = this.formBuilder.group({
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      email: [null, [Validators.required, Validators.email]],
+      endereco: [null, Validators.required],
+      telefone: [null, [Validators.required]],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required]
 
     });
 

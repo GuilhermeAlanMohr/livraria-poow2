@@ -8,9 +8,10 @@ export class EditorasService {
 
   constructor() { }
 
+  private readonly API = 'http://localhost:3000/editoras';
   editoras: Editora[] = [
     {
-      codigo: 1,
+      id: 1,
       nome: "Editora 1",
       telefone: "(51) 99004-1000",
       email: "edit@gmail.com",
@@ -19,7 +20,7 @@ export class EditorasService {
       ativa: true,
     },
     {
-      codigo: 2,
+      id: 2,
       nome: "Editora 2",
       telefone: "(51) 99004-1000",
       email: "edit2@gmail.com",
@@ -28,7 +29,7 @@ export class EditorasService {
       ativa: true,
     },
     {
-      codigo: 3,
+      id: 3,
       nome: "Editora 3",
       telefone: "(51) 96067-5140",
       email: "edit2@hotmail.com",
@@ -46,9 +47,9 @@ export class EditorasService {
     let editora = this.getEditoras();
     for(let i=0; i<this.editoras.length; i++){
       let editora = this.editoras[i];
-      if(editora.codigo == id){
+      if(editora.id == id){
         return {
-          "codigo":editora.codigo,
+          "id":editora.id,
           "nome":editora.nome,
           "telefone":editora.telefone,
           "email":editora.email,
@@ -67,7 +68,7 @@ export class EditorasService {
 
   addEditora(nome:string, email: string, endereco:string, telefone: string, cidade:number){
     this.editoras.push({
-      "codigo": this.editoras.length++,
+      "id": this.editoras.length++,
       "nome":nome,
       "telefone":telefone,
       "email":email,
@@ -79,7 +80,7 @@ export class EditorasService {
 
   excluirEditora(editora:Editora){
     for(let edit of this.editoras){
-      if(editora.codigo == edit.codigo){
+      if(editora.id == edit.id){
         this.editoras.pop();
       }
     }
@@ -87,7 +88,7 @@ export class EditorasService {
 
   editarEditora(editora:Editora){
     for(let edit of this.editoras){
-      if(editora.codigo == edit.codigo){
+      if(editora.id == edit.id){
         this.editoras.pop();
         this.editoras.push(editora);
       }
