@@ -1,16 +1,54 @@
 <div class="container">
-  <h5>Lista de Editoras</h5>
+  <div class="card mt-3">
+    <div class="card-header">
+      <div class="float-left">
+        <h4>Lista de Editoras</h4>
+      </div>
+      <div class="float-right">
+        <button type="button" class="btn btn-primary" style="margin-left: 8px; margin-right: 8px;"
+                [routerLink]="['cadastrar']">Nova Editora</button>
+        <button type="button" class="btn btn-secondary" style="margin-left: 8px; margin-right: 8px;"
+        >Atualizar</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover" *ngIf="editoras as editoras; else loading">
+        <thead>
+        <tr>
+          <th>Nome da Editora</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Endereço</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let editora of editoras">
+          <td *ngIf="editora.getAtiva()">{{ editora.getNome() }}</td>
+          <td *ngIf="editora.getAtiva()">{{ editora.getEmail() }}</td>
+          <td *ngIf="editora.getAtiva()">{{ editora.getTelefone() }}</td>
+          <td *ngIf="editora.getAtiva()">{{ editora.getEndereco() }}</td>
+          <td *ngIf="editora.getAtiva()">
+              <span class="float-right" style="margin-left: 10px;">
+                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarEditora(editora.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Visualizar
+                </button>
 
-  <div class="card row">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"
-      *ngFor="let editora of editoras">
-        <a href="#!" *ngIf="editora.ativa" class="text-dark"
-        [routerLink]="['/editoras', editora.id]">
-          {{ editora.nome }} - {{ editora.email }} - {{ editora.endereco }}}
-        </a>
-      </li>
-    </ul>
+                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirEditora(editora.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Remover
+                </button>
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <span>Carregando Editoras...</span>
+      </ng-template>
+
+    </div>
   </div>
-  <a class="btn btn-primary" (click)="cadastrarEditora()">Cadastrar Nova Editora</a>
 </div>

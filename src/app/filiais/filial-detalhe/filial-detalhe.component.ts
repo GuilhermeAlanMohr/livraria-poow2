@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FiliaisService } from '../filiais.service';
+import { FiliaisService } from '../service/filiais.service';
+import {Filial} from "../model/filial";
 
 @Component({
   selector: 'app-filial-detalhe',
@@ -13,7 +14,7 @@ export class FilialDetalheComponent implements OnInit {
   codigo: number = 0;
   inscricao: Subscription = new Subscription();
 
-  filial: any = {};
+  filial: Filial = new Filial();
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +27,9 @@ export class FilialDetalheComponent implements OnInit {
       (params: any) => {
         this.codigo = params['id'];
 
-        this.filial = this.filiaisService.getFilial(this.codigo);
+        this.filiaisService.getFilial(this.codigo).subscribe(fi => {
+          this.filial = fi;
+        });
 
         if(this.filial == null){
           console.log("Filial não encontrada");
@@ -41,7 +44,7 @@ export class FilialDetalheComponent implements OnInit {
   }
 
   editarFilial(){
-    this.router.navigate(['/filiais', this.filial.codigo, 'editar']);
+    this.router.navigate(['/filiais', this.filial.getCodigo(), 'editar']);
   }
 
 }

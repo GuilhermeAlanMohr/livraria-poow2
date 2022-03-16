@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FiliaisService } from './filiais.service';
-import { Filial } from './filial';
+import { FiliaisService } from './service/filiais.service';
+import { Filial } from './model/filial';
 
 @Component({
   selector: 'app-filiais',
@@ -11,7 +11,7 @@ import { Filial } from './filial';
 })
 export class FiliaisComponent implements OnInit {
 
-  filiais$!: Observable<Filial[]>;
+  filiais: Filial[] = [];
 
   constructor(
     private filiaisService: FiliaisService,
@@ -20,12 +20,26 @@ export class FiliaisComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.filiais$ = this.filiaisService.getFiliais();
+    this.getFiliais();
 
   }
 
-  cadastrarFilial(){
-    this.router.navigate(['/filiais/cadastrar']);
+  getFiliais(){
+    this.filiaisService.getFiliais().subscribe(fi => {
+      this.filiais = fi
+    });
+  }
+
+  verificarFilial(id: number | undefined){
+    this.router.navigate(["filiais/",id]);
+  }
+
+  excluirFilial(id: number | undefined){
+    console.log("Código: ",id);
+    this.filiaisService.excluirFilial(id).subscribe(msg => {
+      console.log(msg),
+        alert(msg)
+    });
   }
 
 }

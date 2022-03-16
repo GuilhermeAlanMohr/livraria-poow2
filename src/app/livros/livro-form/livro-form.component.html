@@ -20,17 +20,18 @@
       <div class="col-md-4">
         <label for="genero" class="control-label">Gênero</label>
         <select class="form-control" id="genero" formControlName="genero">
-          <option *ngFor="let genero of generos$ | async" [ngValue]="genero.id"
-          >{{ genero.nome }}</option>
+          <option *ngFor="let genero of generos" [ngValue]="genero.getCodigo()"
+          >{{ genero.getNome() }}</option>
         </select>
       </div>
       <div class="col-md-3">
         <label for="editora" class="control-label">Editora</label>
         <select class="form-control" id="editora" formControlName="editora">
-          <option *ngFor="let editora of editoras$ | async" [ngValue]="editora.id">{{ editora.nome }}</option>
+          <option *ngFor="let editora of editoras" [ngValue]="editora.getCodigo()">{{ editora.getNome() }}</option>
         </select>
       </div>
     </div>
     <a class="btn btn-success" (click)="onSubmit()">Salvar</a>
+    <a class="btn btn-dark" (click)="onCancel()">Cancelar</a>
   </form>
 </div>

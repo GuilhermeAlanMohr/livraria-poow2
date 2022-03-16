@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Cidade } from 'src/app/servicos-globais/cidade';
+import { Cidade } from 'src/app/servicos-globais/model/cidade';
 import { DropdownService } from 'src/app/servicos-globais/dropdown.service';
-import { Estado } from 'src/app/servicos-globais/estado';
-import { Editora } from '../editora';
-import { EditorasService } from '../editoras.service';
+import { Estado } from 'src/app/servicos-globais/model/estado';
+import { Editora } from '../model/editora';
+import { EditorasService } from '../service/editoras.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-editora-form',
@@ -19,13 +20,14 @@ export class EditoraFormComponent implements OnInit {
 
   codigo: number = 0;
   inscricao: Subscription = new Subscription();
-  editora: any = '';
-  estado: number = 0;
-  cidade: any = {};
+  editora: Editora | undefined = new Editora();
+  estado: Estado = new Estado();
+  cidade: Cidade = new Cidade();
 
   estados: Estado[] = [];
   cidades: Cidade[] = [];
   formulario!: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,29 +35,33 @@ export class EditoraFormComponent implements OnInit {
     private dropdownService: DropdownService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private editorasServices: EditorasService
   ) { }
 
   ngOnInit(): void {
 
+    this.editora = this.route.snapshot.data['editora'];
+
     this.dropdownService.getEstados()
       .subscribe(dados => this.estados = dados);
 
     this.formulario = this.formBuilder.group({
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
-      email: [null, [Validators.required, Validators.email]],
-      endereco: [null, Validators.required],
-      telefone: [null, [Validators.required]],
-      cidade: [null, Validators.required],
-      estado: [null, Validators.required]
+      codigo: [this.editora?.getCodigo()],
+      nome: [this.editora?.getNome(), [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
+      email: [this.editora?.getEmail(), [Validators.required, Validators.email]],
+      endereco: [this.editora?.getEndereco(), Validators.required],
+      telefone: [this.editora?.getTelefone(), [Validators.required]],
+      cidade: [this.editora?.getCidade()?.getCodigo(), Validators.required],
+      estado: [this.editora?.getCidade()?.getEstado()?.getSigla(), Validators.required]
 
     });
 
     this.formulario.get('estado')?.valueChanges
       .pipe(
         tap(estado => console.log('Novo Estado: ',estado)),
-        map(estado => this.estados.filter(e => e.sigla === estado)),
-        map(estados => estados && estados.length > 0 ? estados[0].sigla : ''),
+        map(estado => this.estados.filter(e => e.getSigla() === estado)),
+        map(estados => estados && estados.length > 0 ? estados[0].getSigla() : ''),
         tap(console.log),
         switchMap((estadoSigla: string) => this.dropdownService.getCidades(estadoSigla)),
         tap(console.log)
@@ -66,13 +72,12 @@ export class EditoraFormComponent implements OnInit {
         (params: any) => {
           this.codigo = params['id'];
 
-          this.editora = this.editorasServices.getEditora(this.codigo);
-          this.cidade = this.dropdownService.getCidade(this.editora.cidade);
-          this.estado = this.cidade.estado;
-
-          if(this.editora === null){
-            this.editora = {};
-          }
+          this.editorasServices.getEditora(this.codigo).subscribe(ed => {
+            this.editora = ed;
+          });
+          this.dropdownService.getCidade(this.cidade.getCodigo()).subscribe(cid => {
+            this.cidade = cid;
+          });
         }
       );
 
@@ -82,24 +87,23 @@ export class EditoraFormComponent implements OnInit {
     this.inscricao.unsubscribe();
   }
 
-  editarEditora(editora:Editora){
-    this.editorasServices.editarEditora(editora);
-    console.log("Editora editada com sucesso!");
-    this.router.navigate(['/editoras']);
+  onSubmit(){
+    this.submitted = true;
+    console.log(this.formulario.value);
+    if (this.formulario.valid) {
+      console.log('submit');
+      this.editorasServices.salvar(this.formulario.value).subscribe(msg => {
+        console.log(msg),
+        alert(msg),
+        this.location.back()
+      });
+
+    }
   }
 
-  addEditora(){
-    this.editorasServices.addEditora(this.editora.nome,this.editora.email,this.editora.endereco,
-      this.editora.telefone,this.editora.cidade);
-
-    console.log("Editora adicionada com sucesso!");
-    this.router.navigate(['/editoras']);
-  }
-
-  excluirEditora(editora:Editora){
-    this.editorasServices.excluirEditora(editora);
-    console.log("Editora removida com sucesso!");
-    this.router.navigate(['/editoras']);
+  onCancel(){
+    this.submitted = false;
+    this.formulario.reset();
   }
 
 }

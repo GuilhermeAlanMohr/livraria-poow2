@@ -1,16 +1,53 @@
 <div class="container">
-  <h5>Lista de Filiais</h5>
+  <div class="card mt-3">
+    <div class="card-header">
+      <div class="float-left">
+        <h4>Lista de Filiais</h4>
+      </div>
+      <div class="float-right">
+        <button type="button" class="btn btn-primary" style="margin-left: 8px; margin-right: 8px;"
+                [routerLink]="['cadastrar']">Nova Filial</button>
+        <button type="button" class="btn btn-secondary" style="margin-left: 8px; margin-right: 8px;"
+        >Atualizar</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover" *ngIf="filiais as filiais; else loading">
+        <thead>
+        <tr>
+          <th>Nome da Filial</th>
+          <th>Email da Filial</th>
+          <th>Endereço da Filial</th>
+          <th>Telefone da Filial</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let filial of filiais">
+          <td *ngIf="filial.getAtiva()">{{ filial.getNome() }}</td>
+          <td *ngIf="filial.getAtiva()">{{ filial.getEmail() }}</td>
+          <td *ngIf="filial.getAtiva()">{{ filial.getEndereco() }}</td>
+          <td *ngIf="filial.getAtiva()">{{ filial.getTelefone() }}</td>
+          <td *ngIf="filial.getAtiva()">
+              <span class="float-right" style="margin-left: 10px;">
+                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarFilial(filial.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Visualizar
+                </button>
 
-  <div class="card row">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"
-      *ngFor="let filial of filiais$ | async as filiais">
-        <a href="#!" *ngIf="filial.ativa" class="text-dark"
-        [routerLink]="['/filiais', filial.id]">
-          {{ filial.nome }} - {{ filial.email }} - {{ filial.endereco }}
-        </a>
-      </li>
-    </ul>
+                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirFilial(filial.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Remover
+                </button>
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <span>Carregando Filiais...</span>
+      </ng-template>
+    </div>
   </div>
-  <a class="btn btn-primary" (click)="cadastrarFilial()">Cadastrar Nova Filial</a>
 </div>

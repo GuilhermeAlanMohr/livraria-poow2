@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { EstoquesService } from './estoques.service';
+import { EstoquesService } from './service/estoques.service';
 import { EstoqueFormComponent } from './estoque-form/estoque-form.component';
 import { EstoqueDetalheComponent } from './estoque-detalhe/estoque-detalhe.component';
 import { EstoquesComponent } from './estoques.component';

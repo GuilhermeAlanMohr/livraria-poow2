@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table class="table table-hover" *ngIf="(livros$ | async) as livros; else loading">
+      <table class="table table-hover" *ngIf="livros as livros; else loading">
         <thead>
           <tr>
             <th>Nome do Livro</th>
@@ -22,16 +22,16 @@
         </thead>
         <tbody>
           <tr *ngFor="let livro of livros">
-            <td *ngIf="livro.ativo">{{ livro.nome }}</td>
-            <td *ngIf="livro.ativo">{{ livro.nomeAutor }}</td>
-            <td *ngIf="livro.ativo">
+            <td *ngIf="livro.getAtivo()">{{ livro.getNome() }}</td>
+            <td *ngIf="livro.getAtivo()">{{ livro.getNomeAutor() }}</td>
+            <td *ngIf="livro.getAtivo()">
               <span class="float-right" style="margin-left: 10px;">
-                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarLivro(livro.id)"
+                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarLivro(livro.getCodigo())"
                   style="margin-left: 8px; margin-right: 8px;">
                   Visualizar
                 </button>
 
-                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirLivro(livro.id)"
+                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirLivro(livro.getCodigo())"
                   style="margin-left: 8px; margin-right: 8px;">
                   Remover
                 </button>

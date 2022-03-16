@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Editora } from '../editora';
-import { EditorasService } from '../editoras.service';
+import { Editora } from '../model/editora';
+import { EditorasService } from '../service/editoras.service';
 
 @Component({
   selector: 'app-editora-detalhe',
@@ -14,7 +14,7 @@ export class EditoraDetalheComponent implements OnInit {
   codigo: number = 0;
   inscricao: Subscription = new Subscription();
 
-  editora: any = {};
+  editora: Editora = new Editora();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +27,9 @@ export class EditoraDetalheComponent implements OnInit {
       (params: any) => {
         this.codigo = params['id'];
 
-        this.editora = this.editorasService.getEditora(this.codigo);
+        this.editorasService.getEditora(this.codigo).subscribe(ed => {
+          this.editora = ed;
+        });
 
         if(this.editora == null){
           console.log("Editora não encontrada");
@@ -42,7 +44,7 @@ export class EditoraDetalheComponent implements OnInit {
   }
 
   editarEditora(){
-    this.router.navigate(['/editoras', this.editora.id, 'editar']);
+    this.router.navigate(['/editoras', this.editora.getCodigo(), 'editar']);
   }
 
 }

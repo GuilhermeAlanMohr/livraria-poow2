@@ -1,8 +1,8 @@
-import { Livro } from './../livro';
+import { Livro } from './../model/livro';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LivrosService } from '../livros.service';
+import { LivrosService } from '../service/livros.service';
 
 @Component({
   selector: 'app-livro-detalhe',
@@ -17,26 +17,21 @@ export class LivroDetalheComponent implements OnInit {
     private livrosService: LivrosService
   ) {}
 
-  codigo: number = 0;
-  nome: string = '';
-  nomeAutor: string = '';
-  valor: number = 0;
+  livro: Livro = new Livro();
 
   ngOnInit(): void {
 
-    const livro = this.route.snapshot.data['livro'];
-    this.codigo = livro.id;
-    this.nome = livro.nome;
-    this.nomeAutor = livro.nomeAutor;
-    this.valor = livro.valor;
-    if(livro.codigo == 0){
+    this.livro = this.route.snapshot.data['livro'];
+    if(this.livro.getCodigo() == 0){
+      alert("Livro não encontrado");
       console.log("Livro não encontrado");
       this.router.navigate(['/livros']);
     }
+
   }
 
   editarLivro(){
-    this.router.navigate(['/livros', this.codigo, 'editar']);
+    this.router.navigate(['/livros/', this.livro.getCodigo(), '/editar']);
   }
 
 }

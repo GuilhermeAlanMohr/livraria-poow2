@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { EstoquesService } from '../estoques.service';
+import { EstoquesService } from '../service/estoques.service';
+import {Estoque} from "../model/estoque";
 
 @Component({
   selector: 'app-estoque-detalhe',
@@ -13,7 +14,7 @@ export class EstoqueDetalheComponent implements OnInit {
   codigo: number = 0;
   inscricao: Subscription = new Subscription();
 
-  estoque: any = {};
+  estoque: Estoque = new Estoque();
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +27,9 @@ export class EstoqueDetalheComponent implements OnInit {
       (params: any) => {
         this.codigo = params['id'];
 
-        this.estoque = this.estoquesService.getEstoque(this.codigo);
+        this.estoquesService.getEstoque(this.codigo).subscribe(est => {
+          this.estoque = est;
+        });
 
         if(this.estoque == null){
           console.log("Item do Estoque não encontrado");
@@ -41,7 +44,7 @@ export class EstoqueDetalheComponent implements OnInit {
   }
 
   editarEstoque(){
-    this.router.navigate(['/estoques', this.estoque.codigo, 'editar']);
+    this.router.navigate(['/estoques', this.estoque.getCodigo(), 'editar']);
   }
 
 }

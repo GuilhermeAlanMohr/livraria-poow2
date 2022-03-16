@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="nav-link text-dark" aria-current="page" href="#" [routerLink]="['/editoras']">Editoras</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link text-dark" aria-current="page" href="#" [routerLink]="['/estoques']">Estoque</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link text-dark" aria-current="page" href="#" [routerLink]="['/filiais']">Filiais</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link text-dark" aria-current="page" href="#" [routerLink]="['/livros']">Livros</a>
+              </li>
+          </ul>
+      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

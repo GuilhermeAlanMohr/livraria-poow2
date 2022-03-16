@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { EditorasService } from '../editoras/editoras.service';
+import { EditorasService } from './service/editoras.service';
 import { DropdownService } from '../servicos-globais/dropdown.service';
 import { EditoraDetalheComponent } from './editora-detalhe/editora-detalhe.component';
 import { EditoraFormComponent } from './editora-form/editora-form.component';

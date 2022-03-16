@@ -1,32 +1,25 @@
-import { LivrosService } from './../livros/livros.service';
-import { Livro } from 'src/app/livros/livro';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import {Estoque} from "../estoques/model/estoque";
+import {EstoquesService} from "../estoques/service/estoques.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EstoqueResolverGuard implements Resolve<Livro> {
+export class EstoqueResolverGuard implements Resolve<Estoque> {
 
-  constructor(private livrosService: LivrosService) {}
+  constructor(private estoquesService: EstoquesService) {}
+  estoque: Estoque = new Estoque();
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Livro> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Estoque {
 
     if (route.params && route.params['id']) {
-      return this.livrosService.getLivro(route.params['id']);
+      this.estoquesService.getEstoque(route.params['id']).subscribe(est => {
+        this.estoque = est;
+      });
     }
-
-    return of({
-      id: 0,
-      nome: "",
-      nomeAutor: "",
-      valor: 0,
-      editora: 0,
-      genero: 0,
-      ativo: false
-    });
-
+    return this.estoque;
   }
 
 }

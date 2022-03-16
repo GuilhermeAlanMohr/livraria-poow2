@@ -1,8 +1,7 @@
-import { LivrosService } from './../livros/livros.service';
-import { Livro } from 'src/app/livros/livro';
+import { LivrosService } from '../livros/service/livros.service';
+import { Livro } from 'src/app/livros/model/livro';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +9,17 @@ import { Observable, of } from 'rxjs';
 export class LivroResolverGuard implements Resolve<Livro> {
 
   constructor(private livrosService: LivrosService) {}
+  livro: Livro = new Livro();
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Livro> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Livro {
 
     if (route.params && route.params['id']) {
-      return this.livrosService.getLivro(route.params['id']);
+      this.livrosService.getLivro(route.params['id']).subscribe(li=> {
+        this.livro = li;
+      });
     }
 
-    return of({
-      id: 0,
-      nome: "",
-      nomeAutor: "",
-      valor: 0,
-      editora: 0,
-      genero: 0,
-      ativo: false
-    });
+    return this.livro;
 
   }
 

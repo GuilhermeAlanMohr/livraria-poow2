@@ -168,11 +168,29 @@
   "livros": [
     {
       "id": 1,
-      "nome": "Livro 1",
+      "nome": "Livro 16",
       "nomeAutor": "João Paulo",
       "valor": 30,
-      "editora": 3,
-      "genero": 29,
+      "genero": {
+        "id": 5,
+        "nome": "Conto"
+      },
+      "editora": {
+        "id": 1,
+        "nome": "Editora 1",
+        "telefone": "(51) 99004-1000",
+        "email": "edit@gmail.com",
+        "endereco": "Rua Ruperti Filho 2578",
+        "cidade": {
+          "codigo": "22",
+          "nome": "Divino de São Lourenço",
+          "estado": {
+            "sigla":"ES",
+            "nome":"Espírito Santo"
+          }
+        },
+        "ativa": true
+      },
       "ativo": true
     },
     {
@@ -180,18 +198,26 @@
       "nome": "Livro 2",
       "nomeAutor": "Paulo",
       "valor": 35.5,
-      "editora": 1,
-      "genero": 5,
+      "editora": {
+        "id": 1,
+        "nome": "Editora 1",
+        "telefone": "(51) 99004-1000",
+        "email": "edit@gmail.com",
+        "endereco": "Rua Ruperti Filho 2578",
+        "cidade": {
+          "codigo": "22",
+          "nome": "Divino de São Lourenço",
+          "estado": {
+            "sigla":"ES",
+            "nome":"Espírito Santo"
+          }
+        }
+      },
+      "genero": {
+        "id": 5,
+        "nome": "Conto"
+      },
       "ativo": false
-    },
-    {
-      "id": 3,
-      "nome": "Livro 3",
-      "nomeAutor": "Pedro",
-      "valor": 19.99,
-      "editora": 1,
-      "genero": 18,
-      "ativo": true
     }
   ],
   "editoras": [
@@ -201,7 +227,14 @@
       "telefone": "(51) 99004-1000",
       "email": "edit@gmail.com",
       "endereco": "Rua Ruperti Filho 2578",
-      "cidade": 22,
+      "cidade": {
+        "codigo": "22",
+        "nome": "Divino de São Lourenço",
+        "estado": {
+          "sigla":"ES",
+          "nome":"Espírito Santo"
+        }
+      },
       "ativa": true
     },
     {
@@ -210,7 +243,14 @@
       "telefone": "(51) 99004-1000",
       "email": "edit2@gmail.com",
       "endereco": "Rua Barão do Triunfo 2142",
-      "cidade": 102,
+      "cidade": {
+        "codigo": "102",
+        "nome": "Anadia",
+        "estado": {
+          "sigla":"AL",
+          "nome":"Alagoas"
+        }
+      },
       "ativa": true
     },
     {
@@ -219,61 +259,209 @@
       "telefone": "(51) 96067-5140",
       "email": "edit2@hotmail.com",
       "endereco": "Rua Visconde da Graça 2018",
-      "cidade": 50,
+      "cidade": {
+        "codigo": "50",
+        "nome": "Mucurici",
+        "estado": {
+          "sigla":"ES",
+          "nome":"Espírito Santo"
+        }
+      },
       "ativa": false
     }
   ],
   "filiais": [
     {
-      "id" : 1,
-      "nome" : "Filial 1",
-      "telefone" : "(51) 99004-1000",
-      "email" : "filial@gmail.com",
-      "endereco" : "Rua Ruperti Filho 2578",
-      "cidade" : 22,
-      "ativa" : true
+      "id": 1,
+      "nome": "Filial 1",
+      "telefone": "(51) 99004-1000",
+      "email": "filial@gmail.com",
+      "endereco": "Rua Ruperti Filho 2578",
+      "cidade": {
+        "codigo": "22",
+        "nome": "Divino de São Lourenço",
+        "estado": {
+          "sigla":"ES",
+          "nome":"Espírito Santo"
+        }
+      },
+      "ativa": true
     },
     {
-      "id" : 2,
-      "nome" : "Filial 2",
-      "telefone" : "(51) 99004-1000",
-      "email" : "filial2@gmail.com",
-      "endereco" : "Rua Barão do Triunfo 2142",
-      "cidade" : 102,
-      "ativa" : true
+      "id": 2,
+      "nome": "Filial 2",
+      "telefone": "(51) 99004-1000",
+      "email": "filial2@gmail.com",
+      "endereco": "Rua Barão do Triunfo 2142",
+      "cidade": {
+        "codigo": "102",
+        "nome": "Anadia",
+        "estado": {
+          "sigla":"AL",
+          "nome":"Alagoas"
+        }
+      },
+      "ativa": true
     },
     {
-      "id" : 3,
-      "nome" : "Filial 3",
-      "telefone" : "(51) 96067-5140",
-      "email" : "filial3@hotmail.com",
-      "endereco" : "Rua Visconde da Graça 2018",
-      "cidade" : 50,
-      "ativa" : false
+      "id": 3,
+      "nome": "Filial 3",
+      "telefone": "(51) 96067-5140",
+      "email": "filial3@hotmail.com",
+      "endereco": "Rua Visconde da Graça 2018",
+      "cidade": {
+        "codigo": "50",
+        "nome": "Mucurici",
+        "estado": {
+          "sigla":"ES",
+          "nome":"Espírito Santo"
+        },
+      "ativa": false
+      }
     }
   ],
   "estoques": [
     {
       "id": 1,
-      "filial": 1,
-      "livro": 2,
+      "filial": {
+        "id": 1,
+        "nome": "Filial 1",
+        "telefone": "(51) 99004-1000",
+        "email": "filial@gmail.com",
+        "endereco": "Rua Ruperti Filho 2578",
+        "cidade": {
+          "codigo": "22",
+          "nome": "Divino de São Lourenço",
+          "estado": {
+            "sigla":"ES",
+            "nome":"Espírito Santo"
+          }
+        },
+        "ativa": true
+      },
+      "livro": {
+        "id": 2,
+        "nome": "Livro 2",
+        "nomeAutor": "Paulo",
+        "valor": 35.5,
+        "editora": {
+          "id": 1,
+          "nome": "Editora 1",
+          "telefone": "(51) 99004-1000",
+          "email": "edit@gmail.com",
+          "endereco": "Rua Ruperti Filho 2578",
+          "cidade": {
+            "codigo": "22",
+            "nome": "Divino de São Lourenço",
+            "estado": {
+              "sigla":"ES",
+              "nome":"Espírito Santo"
+            }
+          }
+        },
+        "genero": {
+          "id": 5,
+          "nome": "Conto"
+        },
+        "ativo": false
+      },
       "quantidade": 23,
       "ativo": true
     },
     {
       "id": 2,
-      "filial": 3,
-      "livro": 1,
+      "filial": {
+        "id": 3,
+        "nome": "Filial 3",
+        "telefone": "(51) 96067-5140",
+        "email": "filial3@hotmail.com",
+        "endereco": "Rua Visconde da Graça 2018",
+        "cidade": {
+          "codigo": "50",
+          "nome": "Mucurici",
+          "estado": {
+            "sigla":"ES",
+            "nome":"Espírito Santo"
+          },
+        "ativa": false
+        }
+      },
+      "livro": {
+        "id": 1,
+        "nome": "Livro 16",
+        "nomeAutor": "João Paulo",
+        "valor": 30,
+        "genero": {
+          "id": 5,
+          "nome": "Conto"
+        },
+        "editora": {
+          "id": 1,
+          "nome": "Editora 1",
+          "telefone": "(51) 99004-1000",
+          "email": "edit@gmail.com",
+          "endereco": "Rua Ruperti Filho 2578",
+          "cidade": {
+            "codigo": "22",
+            "nome": "Divino de São Lourenço",
+            "estado": {
+              "sigla":"ES",
+              "nome":"Espírito Santo"
+            }
+          },
+          "ativa": true
+        },
+        "ativo": true
+      },
       "quantidade": 16,
       "ativo": true
     },
     {
       "id": 3,
-      "filial": 1,
-      "livro": 2,
+      "filial": {
+        "id": 2,
+        "nome": "Filial 2",
+        "telefone": "(51) 99004-1000",
+        "email": "filial2@gmail.com",
+        "endereco": "Rua Barão do Triunfo 2142",
+        "cidade": {
+          "codigo": "102",
+          "nome": "Anadia",
+          "estado": {
+            "sigla":"AL",
+            "nome":"Alagoas"
+          }
+        },
+        "ativa": true
+      },
+      "livro": {
+        "id": 2,
+        "nome": "Livro 2",
+        "nomeAutor": "Paulo",
+        "valor": 35.5,
+        "editora": {
+          "id": 1,
+          "nome": "Editora 1",
+          "telefone": "(51) 99004-1000",
+          "email": "edit@gmail.com",
+          "endereco": "Rua Ruperti Filho 2578",
+          "cidade": {
+            "codigo": "22",
+            "nome": "Divino de São Lourenço",
+            "estado": {
+              "sigla":"ES",
+              "nome":"Espírito Santo"
+            }
+          }
+        },
+        "genero": {
+          "id": 5,
+          "nome": "Conto"
+        },
+        "ativo": false
+      },
       "quantidade": 38,
       "ativo": true
     }
   ]
-
 }

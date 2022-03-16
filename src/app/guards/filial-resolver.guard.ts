@@ -1,10 +1,7 @@
-import { LivrosService } from './../livros/livros.service';
-import { Livro } from 'src/app/livros/livro';
+import { FiliaisService } from '../filiais/service/filiais.service';
+import { Filial } from 'src/app/filiais/model/filial';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { FiliaisService } from '../filiais/filiais.service';
-import { Filial } from '../filiais/filial';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +9,17 @@ import { Filial } from '../filiais/filial';
 export class FilialResolverGuard implements Resolve<Filial> {
 
   constructor(private filiaisService: FiliaisService) {}
+  filial: Filial = new Filial();
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Filial> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Filial {
 
     if (route.params && route.params['id']) {
-      return this.filiaisService.getFilial(route.params['id']);
+      this.filiaisService.getFilial(route.params['id']).subscribe(fi=> {
+        this.filial = fi;
+      });
     }
 
-    return of({
-      id : 0,
-      nome : "",
-      telefone : "",
-      email : "",
-      endereco : "",
-      cidade : 0,
-      ativa : false
-    });
+    return this.filial;
 
   }
 

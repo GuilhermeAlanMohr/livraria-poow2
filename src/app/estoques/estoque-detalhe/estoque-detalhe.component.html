@@ -1,15 +1,15 @@
 <div class="container">
-  <h5>Detalhes da Editora</h5>
+  <h5>Detalhes do Item do Estoque</h5>
   <div class="card row">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        {{ estoque.quantidade}}
+        {{ estoque.getQuantidade()}}
       </li>
       <li class="list-group-item">
-        Código do Livro: {{ estoque.livro }}
+        Código do Livro: {{ estoque.getLivro()?.getNome() }}
       </li>
       <li class="list-group-item">
-        Código da Filial: {{ estoque.filial }}
+        Código da Filial: {{ estoque.getFilial()?.getNome() }}
       </li>
     </ul>
   </div>

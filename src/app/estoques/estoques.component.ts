@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Estoque } from './estoque';
-import { EstoquesService } from './estoques.service';
+import { Estoque } from './model/estoque';
+import { EstoquesService } from './service/estoques.service';
 
 @Component({
   selector: 'app-estoques',
@@ -19,12 +19,26 @@ export class EstoquesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.estoques = this.estoquesService.getEstoques();
+    this.getEstoques();
 
   }
 
-  cadastrarEstoque(){
-    this.router.navigate(['/estoques/cadastrar']);
+  getEstoques(){
+    this.estoquesService.getEstoques().subscribe(est => {
+      this.estoques = est;
+    });
+  }
+
+  verificarEstoque(id: number | undefined){
+    this.router.navigate(["estoques/",id]);
+  }
+
+  excluirEstoque(id: number | undefined){
+    console.log("Código: ",id);
+    this.estoquesService.excluirEstoque(id).subscribe(msg => {
+      console.log(msg),
+      alert(msg)
+    });
   }
 
 }

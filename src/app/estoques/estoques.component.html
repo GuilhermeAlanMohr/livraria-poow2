@@ -1,16 +1,51 @@
 <div class="container">
-  <h5>Lista de Estoques</h5>
+  <div class="card mt-3">
+    <div class="card-header">
+      <div class="float-left">
+        <h4>Lista de Estoques</h4>
+      </div>
+      <div class="float-right">
+        <button type="button" class="btn btn-primary" style="margin-left: 8px; margin-right: 8px;"
+                [routerLink]="['cadastrar']">Novo Item Estoque</button>
+        <button type="button" class="btn btn-secondary" style="margin-left: 8px; margin-right: 8px;"
+        >Atualizar</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover" *ngIf="estoques as estoques; else loading">
+        <thead>
+        <tr>
+          <th>Código do Estoque</th>
+          <th>Nome do Livro</th>
+          <th>Nome do Filial</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let estoque of estoques">
+          <td *ngIf="estoque.getAtivo()">{{ estoque.getCodigo() }}</td>
+          <td *ngIf="estoque.getAtivo()">{{ estoque.getLivro()?.getNome() }}</td>
+          <td *ngIf="estoque.getAtivo()">{{ estoque.getFilial()?.getNome() }}</td>
+          <td *ngIf="estoque.getAtivo()">
+              <span class="float-right" style="margin-left: 10px;">
+                <button class="btn btn-outline-warning mb-1 btn-sm" (click)="verificarEstoque(estoque.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Visualizar
+                </button>
 
-  <div class="card row">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"
-      *ngFor="let estoque of estoques">
-        <a href="#!" *ngIf="estoque.ativo" class="text-dark"
-        [routerLink]="['/estoques', estoque.id]">
-          Código do Livro: {{ estoque.livro }} - Código da Filial:  {{ estoque.filial }} - Quantidade: {{ estoque.quantidade }}}
-        </a>
-      </li>
-    </ul>
+                <button class="btn btn-outline-danger mb-1 btn-sm" (click)="excluirEstoque(estoque.getCodigo())"
+                        style="margin-left: 8px; margin-right: 8px;">
+                  Remover
+                </button>
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <ng-template #loading>
+        <span>Carregando Estoques...</span>
+      </ng-template>
+    </div>
   </div>
-  <a class="btn btn-primary" (click)="cadastrarEstoque()">Cadastrar Novo Item do Estoque</a>
 </div>

@@ -1,84 +1,68 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Estado } from './estado';
-import { Cidade } from './cidade';
+import { Estado } from './model/estado';
+import { Cidade } from './model/cidade';
 import { map, tap } from '../../../node_modules/rxjs/operators';
-import { Genero } from '../livros/genero';
-import { Editora } from '../editoras/editora';
-import { Livro } from '../livros/livro';
-import { Filial } from '../filiais/filial';
+import { Genero } from '../livros/model/genero';
+import { Editora } from '../editoras/model/editora';
+import { Livro } from '../livros/model/livro';
+import { Filial } from '../filiais/model/filial';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DropdownService {
 
-  private readonly API = 'http://localhost:3000/';
-  private tipo: string = '';
+  private readonly API_URL = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
 
-  getEstados() {
-    return this.http.get<Estado[]>('assets/dados/estados.json');
+  getEstados():Observable<Estado[]>{
+    return this.http.get<Estado[]>(this.API_URL+'filial/estados');
   }
 
-  getEditoras() {
-    return this.http.get<Editora[]>('assets/dados/editoras.json');
+  getEditoras():Observable<Editora[]> {
+    return this.http.get<Editora[]>(this.API_URL+'editora/editoras');
   }
 
-  getFiliais() {
-    return this.http.get<Filial[]>('assets/dados/filiais.json');
+  getFiliais():Observable<Filial[]> {
+    return this.http.get<Filial[]>(this.API_URL+'filial/filiais');
   }
 
-  getLivros() {
-    return this.http.get<Livro[]>('assets/dados/livros.json');
+  getLivros():Observable<Livro[]> {
+    return this.http.get<Livro[]>(this.API_URL+'livro/livros');
   }
 
-  getGeneros() {
-    this.tipo='generos';
-    return this.http.get<Genero[]>(this.API+this.tipo);
+  getGeneros():Observable<Genero[]> {
+    return this.http.get<Genero[]>(this.API_URL+'livro/generos');
   }
 
-  getCidades(siglaEstado: string) {
-    return this.http.get<Cidade[]>('assets/dados/cidades.json')
+  getCidades(siglaEstado: string): Observable<Cidade[]>{
+    return this.http.get<Cidade[]>(this.API_URL+'filial/cidades')
     .pipe(
-      map((cidades: Cidade[]) => cidades.filter(c => c.estado === siglaEstado))
+      map((cidades: Cidade[]) => cidades.filter(c => c.getEstado()?.getSigla() === siglaEstado))
     );
   }
 
-  getCidade(codigoCidade: number) {
-    return this.http.get<Cidade[]>('assets/dados/cidades.json')
-    .pipe(
-      map((cidades: Cidade[]) => cidades.filter(c => c.codigo === codigoCidade))
-    );
+  getCidade(codigo: number | undefined): Observable<Cidade> {
+    return this.http.get<Cidade>(this.API_URL+'filial/cidade?codigo='+codigo);
   }
 
-  getGenero(codigo: number) {
-    return this.http.get<Genero[]>('assets/dados/generos.json')
-    .pipe(
-      map((generos: Genero[]) => generos.filter(g => g.id === codigo))
-    );
+  getGenero(codigo: number | undefined): Observable<Genero> {
+    return this.http.get<Genero>(this.API_URL+'livro/genero?codigo='+codigo)
   }
 
-  getEditora(codigo: number) {
-    return this.http.get<Editora[]>('assets/dados/editoras.json')
-    .pipe(
-      map((editoras: Editora[]) => editoras.filter(e => e.id === codigo))
-    );
+  getEditora(codigo: number | undefined): Observable<Editora> {
+    return this.http.get<Editora>(this.API_URL+'editora?codigo='+codigo);
   }
 
-  getLivro(codigo: number) {
-    return this.http.get<Livro[]>('assets/dados/livros.json')
-    .pipe(
-      map((livros: Livro[]) => livros.filter(l => l.id === codigo))
-    );
+  getLivro(codigo: number | undefined): Observable<Livro> {
+    return this.http.get<Livro>(this.API_URL+'livro?codigo='+codigo);
   }
 
-  getFilial(codigo: number) {
-    return this.http.get<Filial[]>('assets/dados/filiais.json')
-    .pipe(
-      map((filiais: Filial[]) => filiais.filter(f => f.id === codigo))
-    );
+  getFilial(codigo: number | undefined): Observable<Filial> {
+    return this.http.get<Filial>(this.API_URL+'filial?codigo='+codigo);
   }
 
 }

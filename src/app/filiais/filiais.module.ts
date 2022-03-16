@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownService } from '../servicos-globais/dropdown.service';
 
 import { FiliaisComponent } from './filiais.component';
-import { FiliaisService } from './filiais.service';
+import { FiliaisService } from './service/filiais.service';
 import { FilialDetalheComponent } from './filial-detalhe/filial-detalhe.component';
 import { FilialFormComponent } from './filial-form/filial-form.component';
 import { FiliaisRoutingModule } from './filial.routing.module';
